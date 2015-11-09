@@ -1,0 +1,124 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+from __future__ import print_function
+
+import sys
+
+NAME='enru'
+VERSION='0.0.3'
+
+myhelp='''
+{0} {1}
+Usage: {0} <word> [KEYS]
+Console dictionary shell for Doctonary by MUller V.K.
+KEYS:
+ -h, --help          this help
+ --license           short license info
+ --no-colors         disable colored output 
+                     (recomended for less filtering)
+ --accent-skip       skip accent symbols 
+ --accent-color      colorized accent symbols 
+ -B, --accent-bright     bright style for accented letter
+ --accent-capitalize show accented symbols as Capitalized
+'''.format(NAME,VERSION)
+license='''
+Copyright (c) 2013-2015 Shershakov D.A.
+Use code as Public Domain
+'''
+
+
+class XXX(dict):
+    def __init__(self):
+        pass
+    def __getattribute__(self,attr):
+        return u''
+
+
+if '-h' in sys.argv or '--help' in sys.argv or len(sys.argv)==1:
+    print(myhelp)
+    exit()
+elif '--license' in sys.argv:
+    print(license)
+    exit()
+
+if '--accent-skip' in sys.argv:
+    ACCENTS=0
+elif '-B' in sys.argv or '--accent-bright' in sys.argv:
+    ACCENTS=2
+elif '--accent-color' in sys.argv:
+    ACCENTS=3
+elif '--accent-capitalize' in sys.argv:
+    ACCENTS=4
+else:
+    ACCENTS=1
+
+if '--no-colors' not in sys.argv:
+    try:
+        from colorama import init, Fore, Back, Style
+        init()
+    except:
+        Fore=XXX()
+        Back=XXX()
+        Style=XXX()
+else:
+    Fore=XXX()
+    Back=XXX()
+    Style=XXX()
+
+class Text():
+    def __init__(self,master):
+        self.master=master
+        self.i=0
+        pass
+    def delete(self,pos0,pos1) :
+        pass
+    def insert(self,pos,text,tag='') :
+        if ACCENTS==0:
+            text=text.replace(u'́',u'')
+        elif ACCENTS==2:
+            while u'́' in text:
+                i=text.index(u'́')
+                text=text[:i-1]+Style.BRIGHT+text[i-1:i]+Style.NORMAL+text[i+1:]
+        elif ACCENTS==3:
+            while u'́' in text:
+                i=text.index(u'́')
+                text=text[:i-1]+Fore.RED+text[i-1:i]+Fore.RESET+text[i+1:]
+        elif ACCENTS==4:
+            while u'́' in text:
+                i=text.index(u'́')
+                text=text[:i-1]+text[i-1:i].upper()+text[i+1:]
+        cp=sys.stdin.encoding
+        s=text.encode(cp,errors='xmlcharrefreplace').decode(cp)
+        self.i+=1
+        if tag=='translit':
+            print(Fore.BLUE+Back.WHITE+s+Back.BLACK,end='')
+        elif tag=='green':
+            print(Fore.GREEN+s,end='')
+        elif tag=='title':
+            print(Fore.BLACK+Back.WHITE+s+Back.BLACK,end='')
+        else:
+            print(Fore.WHITE+s,end='')
+
+from enruDictionary import myDictionary, DictionaryTextFrame
+
+class DictionaryTextFrame2(DictionaryTextFrame):
+    def __init__(self,master,mydict,font,text_menu,highlight,row):
+        self.mydict=mydict
+        self._text=Text(master)
+        self.entry=None
+        self.highlight=highlight
+        return
+
+if 'python'==sys.argv[0][:6]:
+    word=sys.argv[2]
+    prog=sys.argv[1]
+else:
+    word=sys.argv[1]
+    prog=sys.argv[0]
+
+slovar=prog[:prog.rindex('/')+1]+'slovar2.sqlite'
+
+mydict=myDictionary(fn=slovar)
+DTF=DictionaryTextFrame2('stdscr',mydict,'','',True,'')
+DTF.thisword(word)
+

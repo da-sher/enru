@@ -1,0 +1,16 @@
+enruDictionary.py
+ library for FM30 project
+ Copyright (c) 2011-2015 Shershakov D.A.
+ Public Domain
+
+slovar2.sqlite
+ Muller V.K. [1880-1941] - original dictionary contents (=> Public Domain)
+ Starostin S.A. [1953-2005] - quantisation to text
+   Project The Tower of Babel
+   http://starling.rinet.ru/downl.php?lan=en
+ Shershakov D.A. - parsing, normalizing
+
+enru
+ console front-end
+ Copyright (c) 2013-2015 Shershakov D.A.
+ Public Domain
