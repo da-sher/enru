@@ -1,11 +1,11 @@
 Консольный словарь enru
 
 Системные требования:
-1) python 3                               - требуется
-2) sqlite3  (database and python library) - требуется
-3) colorama (python library)              - рекомендуется 
-                                            (без нее не будет выделения цветом)
-4) UTF-8 в консоли                        - крайне рекомендуется
+1) python 2.7 и старше      - python3 поддерживается
+2) UTF-8 в консоли          - крайне рекомендуется
+
+Рекомендуется:
+1) colorama (python library) - (без нее не будет выделения цветом)
 
 --4--
 Хозяйке на заметку
@@ -31,8 +31,7 @@
 
 
 Размещение файлов:
-enruDictionary.py, enru - в одной папке (например /usr/bin)
-dict2.sqlite - папка /data (определяется в скрипте)
+enruDictionary.py, enru,dict2.sqlite - в одной папке (например /usr/bin)
 
 Альтернативы:
 sdcv (console version of StarDict) by Evgeniy Dushistov
