@@ -1,14 +1,11 @@
 Dictionary for terminal enru
 
 Requirement:
-
-1) Python 2.7 or above (also python3)
-
-2) UTF-8 support in terminal
+* Python 2.7 or above (also python3)
+* UTF-8 support in terminal
 
 Recomended:
-
-1) colorama (python library)
+* colorama (python library)
 
 
 Copyrights
